@@ -22,6 +22,7 @@ export const HotspotTypeKeys = [
   'SYNCROBIT',
   'Bobcat',
   'LONGAPONE',
+  'QR_MAKER',
 ] as const
 export type HotspotType = typeof HotspotTypeKeys[number]
 export type HotspotName =

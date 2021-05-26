@@ -21,7 +21,7 @@ type Props = {
   hotspotType: HotspotType
   onPress: () => void
 }
-const HotspotSelectionListItem = ({
+const HotspotSetupSelectionListItem = ({
   isFirst,
   isLast,
   hotspotType,
@@ -99,4 +99,4 @@ const HotspotSelectionListItem = ({
   )
 }
 
-export default memo(HotspotSelectionListItem)
+export default memo(HotspotSetupSelectionListItem)

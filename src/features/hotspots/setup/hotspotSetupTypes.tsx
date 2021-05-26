@@ -5,6 +5,11 @@ import { HotspotConnectStatus } from '../../../utils/useHotspot'
 export type HotspotSetupStackParamList = {
   HotspotSetupSelectionScreen: undefined
   HotspotSetupEducationScreen: { hotspotType: HotspotType }
+  HotspotSetupScanQrScreen: { hotspotType: HotspotType }
+  HotspotSetupQrConfirmScreen: {
+    hotspotType?: HotspotType
+    addGatewayTxn: string
+  }
   HotspotSetupDiagnosticsScreen: { hotspotType: HotspotType }
   HotspotSetupPowerScreen: { hotspotType: HotspotType }
   HotspotSetupBluetoothInfoScreen: { hotspotType: HotspotType }

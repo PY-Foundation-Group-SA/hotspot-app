@@ -9,11 +9,12 @@ import React, {
 import { Linking } from 'react-native'
 import queryString from 'query-string'
 import { BarCodeScannerResult } from 'expo-barcode-scanner'
-import { Address } from '@helium/crypto-react-native'
 import { useSelector } from 'react-redux'
+import { Address } from '@helium/crypto-react-native'
 import useMount from '../utils/useMount'
 import { RootState } from '../store/rootReducer'
 import navigator from '../navigation/navigator'
+import { HotspotType } from '../store/connectedHotspot/connectedHotspotSlice'
 import {
   AppLink,
   AppLinkFields,
@@ -76,6 +77,16 @@ const useAppLink = () => {
         case 'transfer':
           navigator.send({ scanResult: record })
           break
+
+        case 'add_gateway': {
+          const { address: txnStr, ...rest } = record as AppLink
+          let hotspotType: HotspotType | undefined
+          if (rest.hotspotType) {
+            hotspotType = rest.hotspotType as HotspotType
+          }
+          navigator.confirmAddGateway(txnStr, hotspotType)
+          break
+        }
       }
     },
     [isLocked, isBackedUp],
@@ -210,9 +221,14 @@ const useAppLink = () => {
   )
 
   const handleBarCode = useCallback(
-    async ({ data }: BarCodeScannerResult, scanType: AppLinkCategoryType) => {
+    async (
+      { data }: BarCodeScannerResult,
+      scanType: AppLinkCategoryType,
+      opts?: Record<string, string>,
+    ) => {
       const scanResult = parseBarCodeData(data, scanType)
-      navToAppLink(scanResult)
+
+      navToAppLink({ ...scanResult, ...opts })
     },
     [navToAppLink, parseBarCodeData],
   )

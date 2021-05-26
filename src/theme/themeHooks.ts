@@ -20,3 +20,8 @@ export const useTextVariants = () => {
   const { textVariants } = useTheme<Theme>()
   return textVariants
 }
+
+export const useBreakpoints = () => {
+  const { breakpoints } = useTheme<Theme>()
+  return breakpoints
+}

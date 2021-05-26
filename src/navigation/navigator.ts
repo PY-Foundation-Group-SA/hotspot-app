@@ -2,6 +2,7 @@ import React from 'react'
 import { NavigationContainerRef } from '@react-navigation/native'
 import { LockScreenRequestType } from './main/tabTypes'
 import { AppLink, AppLinkPayment } from '../providers/appLinkTypes'
+import { HotspotType } from '../store/connectedHotspot/connectedHotspotSlice'
 
 export const navigationRef = React.createRef<NavigationContainerRef>()
 
@@ -20,4 +21,14 @@ const viewHotspot = (address: string) => {
   navigationRef.current?.navigate('HotspotsScreen', { address })
 }
 
-export default { lock, send, viewHotspot }
+const confirmAddGateway = (
+  addGatewayTxn: string,
+  hotspotType?: HotspotType,
+) => {
+  navigationRef.current?.navigate('HotspotSetupQrConfirmScreen', {
+    addGatewayTxn,
+    hotspotType,
+  })
+}
+
+export default { lock, send, viewHotspot, confirmAddGateway }
